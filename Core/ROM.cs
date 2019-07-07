@@ -58,6 +58,10 @@ namespace MinishMaker.Core
                         w.SetPosition(w.Position + 4);//byte 5-8 is dest, skip
                         w.WriteUInt32((uint)size | 0x80000000);//byte 9-12 is size and compressed
                         break;
+					case DataType.areaData:
+						w.SetPosition(pointerAddress);
+						w.WriteBytes(data);
+						break;
                     default:
                         if (size != 0)
                         {

@@ -66,6 +66,12 @@
     <Compile Include="UI\ChestEditorWindow.Designer.cs">
       <DependentUpon>ChestEditorWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\AreaEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AreaEditor.Designer.cs">
+      <DependentUpon>AreaEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\GridBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -105,6 +111,9 @@
     <Compile Include="Utilities\Reader.cs" />
     <Compile Include="Utilities\StringUtil.cs" />
     <Compile Include="Utilities\Writer.cs" />
+    <EmbeddedResource Include="UI\AreaEditor.resx">
+      <DependentUpon>AreaEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\GridBox.resx">
       <DependentUpon>GridBox.cs</DependentUpon>
     </EmbeddedResource>

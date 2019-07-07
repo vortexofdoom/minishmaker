@@ -16,8 +16,10 @@ namespace MinishMaker.UI
 		private ROM ROM_;
         private Project project_;
 		private MapManager mapManager_;
+
 		private ChestEditorWindow chestEditor = null;
 		private MetaTileEditor metatileEditor = null;
+		private AreaEditor areaEditor = null;
 
 		private Bitmap[] mapLayers;
 		private Bitmap[] tileMaps;
@@ -252,6 +254,7 @@ namespace MinishMaker.UI
 				Console.WriteLine( e.Node.Parent.Text.Split( ' ' )[1] + " " + e.Node.Text.Split( ' ' )[1] );
 				int areaIndex = Convert.ToInt32( e.Node.Parent.Text.Split( ' ' )[1], 16 );
 				int roomIndex = Convert.ToInt32( e.Node.Text.Split( ' ' )[1], 16 );
+				var prevArea = currentArea; //changed in next line so hold temporarily
 				var room = FindRoom( areaIndex, roomIndex );
 
 				currentRoom = room;
@@ -277,6 +280,11 @@ namespace MinishMaker.UI
 				if(metatileEditor != null)
 				{
 					metatileEditor.RedrawTiles(currentRoom);
+				}
+
+				if(areaEditor != null&& currentArea != prevArea)//still in the same area? dont reload
+				{
+					areaEditor.LoadArea(areaIndex);
 				}
             }
 		}
@@ -349,7 +357,18 @@ namespace MinishMaker.UI
 
 		public void AddPendingChange(DataType type)
 		{
-			unsavedChanges.Add(new PendingData(currentArea,currentRoom.Index,type));
+			var pendingData = new PendingData(currentArea, currentRoom.Index, type);
+
+			if(unsavedChanges.Contains(pendingData))//exact change already exists
+				return;
+
+			if(pendingData.dataType == DataType.areaData)
+			{
+				if(unsavedChanges.Where(d=>d.dataType==DataType.areaData && d.areaIndex == currentArea).Count()>0)//already a change to the area
+					return;
+			}
+
+			unsavedChanges.Add(pendingData);
 		}
 
 	    private void UpdateViewLayer(ViewLayer layer)
@@ -532,6 +551,28 @@ namespace MinishMaker.UI
 		{
 			metatileEditor = null;
 			metatileEditorToolStripMenuItem.Checked = false;
+		}
+
+		private void areaEditorToolStripMenuItem_Click( object sender, EventArgs e)
+		{
+			if(areaEditorToolStripMenuItem.Checked)
+				return;
+			
+			areaEditor = new AreaEditor();
+
+			if(currentRoom!=null) {
+				areaEditor.LoadArea(currentArea);
+			}
+
+			areaEditor.FormClosed += new FormClosedEventHandler(onAreaEditorClose);
+			areaEditorToolStripMenuItem.Checked = true;
+			areaEditor.Show();
+		}
+
+		void onAreaEditorClose(object sender, FormClosedEventArgs e)
+		{
+			areaEditor = null;
+			areaEditorToolStripMenuItem.Checked = false;
 		}
 	}
 }

@@ -27,9 +27,21 @@ namespace MinishMaker.UI
 		public MetaTileEditor()
 		{
 			InitializeComponent();
+			tLPalette.KeyDown +=EnterUnfocus;
+			tRPalette.KeyDown +=EnterUnfocus;
+			bLPalette.KeyDown +=EnterUnfocus;
+			bRPalette.KeyDown +=EnterUnfocus;
 		}
 
 		//control functions start here
+		private void EnterUnfocus(object sender, KeyEventArgs e)
+		{
+			if(e.KeyCode==Keys.Enter)
+			{
+				HiddenLabel.Focus();
+			}
+		}
+
 		private void tileSetBox_Click( object sender, EventArgs e )
 		{
 			if( tileSetBox.Image == null )

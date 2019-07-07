@@ -44,6 +44,22 @@ namespace MinishMaker.Core
 			}
 		}
 
+		public int MapPosX
+		{
+			get
+			{
+				return mapPosX;
+			}
+		}
+
+		public int MapPosY
+		{
+			get
+			{
+				return mapPosY;
+			}
+		}
+
         private string roomPath;
 
 		private int paletteSetID;

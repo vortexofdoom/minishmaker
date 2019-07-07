@@ -52,7 +52,6 @@
 			this.layer2Button = new System.Windows.Forms.Button();
 			this.label4 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
 			this.tileChange = new System.Windows.Forms.Button();
 			this.tId1 = new System.Windows.Forms.TextBox();
 			this.tId2 = new System.Windows.Forms.TextBox();
@@ -60,6 +59,7 @@
 			this.tId4 = new System.Windows.Forms.TextBox();
 			this.sTId = new System.Windows.Forms.TextBox();
 			this.mTId = new System.Windows.Forms.TextBox();
+			this.HiddenLabel = new System.Windows.Forms.Label();
 			this.metaTileSetPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.metaTileSetBox)).BeginInit();
 			this.tileSetPanel.SuspendLayout();
@@ -297,15 +297,6 @@
 			this.label5.TabIndex = 18;
 			this.label5.Text = "Layer";
 			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(70, 102);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(55, 36);
-			this.button1.TabIndex = 19;
-			this.button1.Text = "Unfocus";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
 			// tileChange
 			// 
 			this.tileChange.Location = new System.Drawing.Point(11, 186);
@@ -376,11 +367,19 @@
 			this.mTId.TabIndex = 26;
 			this.mTId.Text = "FFF";
 			// 
+			// HiddenLabel
+			// 
+			this.HiddenLabel.Location = new System.Drawing.Point(82, 111);
+			this.HiddenLabel.Name = "HiddenLabel";
+			this.HiddenLabel.Size = new System.Drawing.Size(40, 13);
+			this.HiddenLabel.TabIndex = 27;
+			// 
 			// MetaTileEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(566, 262);
+			this.Controls.Add(this.HiddenLabel);
 			this.Controls.Add(this.mTId);
 			this.Controls.Add(this.sTId);
 			this.Controls.Add(this.tId4);
@@ -388,7 +387,6 @@
 			this.Controls.Add(this.tId2);
 			this.Controls.Add(this.tId1);
 			this.Controls.Add(this.tileChange);
-			this.Controls.Add(this.button1);
 			this.Controls.Add(this.label5);
 			this.Controls.Add(this.label4);
 			this.Controls.Add(this.layer2Button);
@@ -453,7 +451,6 @@
 		private System.Windows.Forms.Button layer2Button;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.Button tileChange;
 		private System.Windows.Forms.TextBox tId1;
 		private System.Windows.Forms.TextBox tId2;
@@ -461,5 +458,6 @@
 		private System.Windows.Forms.TextBox tId4;
 		private System.Windows.Forms.TextBox sTId;
 		private System.Windows.Forms.TextBox mTId;
+		private System.Windows.Forms.Label HiddenLabel;
 	}
 }

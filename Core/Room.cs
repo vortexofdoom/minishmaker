@@ -453,5 +453,15 @@ namespace MinishMaker.Core
 					break;
 			}
 		}
+
+		public Rectangle GetMapRect(int areaIndex)
+		{
+			if(metadata==null)
+			{
+				metadata = new RoomMetaData( areaIndex, this.Index );
+			}
+
+			return new Rectangle(new Point(metadata.MapPosX,metadata.MapPosY),new Size(metadata.TileWidth,metadata.TileHeight));
+		}
 	}
 }

@@ -15,7 +15,9 @@ namespace MinishMaker.Core
         roomMetaData,
         tileSet,
         metaTileSet,
-        chestData
+        chestData,
+		areaData,
+		roomLocation
     }
 
     /// <summary>
@@ -120,26 +122,38 @@ namespace MinishMaker.Core
                     Directory.CreateDirectory(areaDirectory);
                 }
 
-                string roomDirectory = areaDirectory + "/Room " + StringUtil.AsStringHex2(modification.roomIndex);
+                switch( modification.dataType )
+				{
+					case DataType.areaData:
+						var areaDataPos = ROM.Instance.headers.areaInformationTableLoc+4*modification.areaIndex;
+						var areaBytes =ROM.Instance.reader.ReadBytes(4,areaDataPos);
+						string areaFileName = (((int)DataType.areaData).ToString());
+						File.WriteAllBytes(areaDirectory + "/" + areaFileName, areaBytes);
+						break;
 
-                if (!Directory.Exists(roomDirectory))
-                {
-                    Directory.CreateDirectory(roomDirectory);
-                }
+					default:
+						string roomDirectory = areaDirectory + "/Room " + StringUtil.AsStringHex2( modification.roomIndex );
 
-                Room room = mapManager.FindRoom(modification.areaIndex, modification.roomIndex);
+						if( !Directory.Exists( roomDirectory ) )
+						{
+							Directory.CreateDirectory( roomDirectory );
+						}
 
-                if (!room.Loaded)
-                {
-                    room.LoadRoom(modification.areaIndex);
-                }
+						Room room = mapManager.FindRoom( modification.areaIndex, modification.roomIndex );
 
-                byte[] data = null;
-                long size = room.GetSaveData(ref data, modification.dataType);
+						if( !room.Loaded )
+						{
+							room.LoadRoom( modification.areaIndex );
+						}
 
-                string name = ((int)modification.dataType).ToString();
+						byte[] data = null;
+						long size = room.GetSaveData( ref data, modification.dataType );
 
-                File.WriteAllBytes(roomDirectory + "/" + name, data);
+						string name = ((int)modification.dataType).ToString();
+
+						File.WriteAllBytes( roomDirectory + "/" + name, data );
+						break;
+				}
             }
         }
 
